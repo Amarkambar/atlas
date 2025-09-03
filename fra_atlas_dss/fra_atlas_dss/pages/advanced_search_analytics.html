@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Search & Analytics - FRA Atlas DSS</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ffraatlas6730back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background font-body">
+    <!-- Navigation Sidebar -->
+    <div id="sidebar" class="fixed left-0 top-0 h-full w-80 bg-surface shadow-lg z-50 transform transition-transform duration-300">
+        <div class="flex flex-col h-full">
+            <!-- Header -->
+            <div class="p-6 border-b border-border-light">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <svg class="w-8 h-8 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <div>
+                            <h1 class="text-lg font-inter font-semibold text-text-primary">FRA Atlas DSS</h1>
+                            <p class="text-sm text-text-secondary">Advanced Search & Analytics</p>
+                        </div>
+                    </div>
+                    <button id="sidebarToggle" class="p-2 rounded-md hover:bg-gray-100 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="flex-1 p-4 space-y-2">
+                <a href="interactive_map_dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-gray-50 transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    <span>Interactive Map</span>
+                </a>
+                <a href="claims_management_dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-gray-50 transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                    </svg>
+                    <span>Claims Management</span>
+                </a>
+                <a href="ai_insights_dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-gray-50 transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M9 11H7v6h2v-6zm4 0h-2v6h2v-6zm4 0h-2v6h2v-6zm2.5-5H19V4h-3V2H8v2H5v2h-.5C3.67 6 3 6.67 3 7.5S3.67 9 4.5 9H5v10c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V9h.5c.83 0 1.5-.67 1.5-1.5S20.33 6 19.5 6z"/>
+                    </svg>
+                    <span>AI Insights</span>
+                </a>
+                <a href="community_input_portal.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-gray-50 transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H17c-.8 0-1.54.37-2.01.99L14 10l-1.99-1.01A2.5 2.5 0 0 0 10 8H8.46c-.8 0-1.54.37-2.01.99L5.5 10H8v12h2v-6h4v6h6z"/>
+                    </svg>
+                    <span>Community Portal</span>
+                </a>
+                <a href="advanced_search_analytics.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary-50 text-primary-700 font-medium">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                    <span>Advanced Search</span>
+                </a>
+            </nav>
+
+            <!-- Saved Searches -->
+            <div class="p-4 border-t border-border-light">
+                <h3 class="text-sm font-medium text-text-primary mb-3">Saved Searches</h3>
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between p-2 rounded-md hover:bg-gray-50 cursor-pointer">
+                        <div>
+                            <div class="text-sm font-medium text-text-primary">Pending Claims MP</div>
+                            <div class="text-xs text-text-secondary">Last run: 2 hours ago</div>
+                        </div>
+                        <svg class="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between p-2 rounded-md hover:bg-gray-50 cursor-pointer">
+                        <div>
+                            <div class="text-sm font-medium text-text-primary">Tribal Areas Analysis</div>
+                            <div class="text-xs text-text-secondary">Last run: 1 day ago</div>
+                        </div>
+                        <svg class="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between p-2 rounded-md hover:bg-gray-50 cursor-pointer">
+                        <div>
+                            <div class="text-sm font-medium text-text-primary">Monthly Report Q3</div>
+                            <div class="text-xs text-text-secondary">Last run: 3 days ago</div>
+                        </div>
+                        <svg class="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="transition-all duration-300 ml-80">
+        <!-- Top Header -->
+        <header class="bg-surface shadow-sm border-b border-border-light">
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="flex items-center space-x-4">
+                    <button id="menuToggle" class="p-2 rounded-md hover:bg-gray-100 transition-colors lg:hidden">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                    <div>
+                        <nav class="flex items-center space-x-2 text-sm text-text-secondary mb-1">
+                            <span>Analytics</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                            <span class="text-primary font-medium">Advanced Search</span>
+                        </nav>
+                        <h2 class="text-xl font-inter font-semibold text-text-primary">Advanced Search & Analytics</h2>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2 text-sm text-text-secondary">
+                        <div class="w-2 h-2 bg-success rounded-full animate-pulse"></div>
+                        <span>Live Data</span>
+                    </div>
+                    <span class="text-sm text-text-secondary">Last updated: 01 Sep 2025, 8:52 PM</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Three Panel Layout -->
+        <div class="flex h-screen">
+            <!-- Left Panel - Search & Filters -->
+            <div class="w-80 bg-surface border-r border-border-light overflow-y-auto">
+                <div class="p-6">
+                    <!-- Natural Language Search -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-inter font-semibold text-text-primary mb-4">Natural Language Search</h3>
+                        <div class="relative mb-4">
+                            <textarea placeholder="Ask complex questions... e.g., 'Show all pending individual claims in tribal areas of Odisha submitted between January 2024 and June 2025 with forest cover above 70%'" class="w-full pl-4 pr-12 py-3 border border-border-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm resize-none h-24"></textarea>
+                            <button class="absolute bottom-3 right-3 p-2 bg-primary text-white rounded-md hover:bg-primary-600 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="flex items-center space-x-2 text-xs text-text-secondary">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Try queries like "Compare approval rates between states" or "Show claims with GPS coordinates"</span>
+                        </div>
+                    </div>
+
+                    <!-- Hierarchical Filters -->
+                    <div class="space-y-6">
+                        <!-- Geographic Filters -->
+                        <div>
+                            <h4 class="text-sm font-medium text-text-primary mb-3">Geographic Filters</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-xs font-medium text-text-secondary mb-1">State</label>
+                                    <select class="w-full px-3 py-2 border border-border-medium rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                                        <option>All States</option>
+                                        <option>Madhya Pradesh</option>
+                                        <option>Tripura</option>
+                                        <option>Odisha</option>
+                                        <option>Telangana</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-text-secondary mb-1">District</label>
+                                    <select class="w-full px-3 py-2 border border-border-medium rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                                        <option>All Districts</option>
+                                        <option>Bhopal</option>
+                                        <option>Indore</option>
+                                        <option>Gwalior</option>
+                                        <option>Jabalpur</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-text-secondary mb-1">Block/Tehsil</label>
+                                    <select class="w-full px-3 py-2 border border-border-medium rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                                        <option>All Blocks</option>
+                                        <option>Berasia</option>
+                                        <option>Phanda</option>
+                                        <option>Huzur</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Claim Filters -->
+                        <div>
+                            <h4 class="text-sm font-medium text-text-primary mb-3">Claim Parameters</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-xs font-medium text-text-secondary mb-1">Claim Type</label>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center space-x-2">
+                                            <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary" checked />
+                                            <span class="text-sm text-text-secondary">Individual Claims</span>
+                                        </label>
+                                        <label class="flex items-center space-x-2">
+                                            <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary" checked />
+                                            <span class="text-sm text-text-secondary">Community Claims</span>
+                                        </label>
+                                        <label class="flex items-center space-x-2">
+                                            <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary" />
+                                            <span class="text-sm text-text-secondary">Community Forest Resource</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-text-secondary mb-1">Status</label>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center space-x-2">
+                                            <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary" checked />
+                                            <span class="text-sm text-text-secondary">Pending</span>
+                                        </label>
+                                        <label class="flex items-center space-x-2">
+                                            <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary" checked />
+                                            <span class="text-sm text-text-secondary">Approved</span>
+                                        </label>
+                                        <label class="flex items-center space-x-2">
+                                            <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary" />
+                                            <span class="text-sm text-text-secondary">Rejected</span>
+                                        </label>
+                                        <label class="flex items-center space-x-2">
+                                            <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary" />
+                                            <span class="text-sm text-text-secondary">Under Review</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Demographic Filters -->
+                        <div>
+                            <h4 class="text-sm font-medium text-text-primary mb-3">Demographic Criteria</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-xs font-medium text-text-secondary mb-1">Tribal Area Classification</label>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center space-x-2">
+                                            <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary" />
+                                            <span class="text-sm text-text-secondary">Scheduled Areas</span>
+                                        </label>
+                                        <label class="flex items-center space-x-2">
+                                            <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary" />
+                                            <span class="text-sm text-text-secondary">Tribal Sub-Plan Areas</span>
+                                        </label>
+                                        <label class="flex items-center space-x-2">
+                                            <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary" />
+                                            <span class="text-sm text-text-secondary">Other Traditional Areas</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-text-secondary mb-1">Forest Cover (%)</label>
+                                    <div class="flex items-center space-x-2">
+                                        <input type="range" min="0" max="100" value="50" class="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" />
+                                        <span class="text-sm text-text-secondary w-12">50%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Temporal Filters -->
+                        <div>
+                            <h4 class="text-sm font-medium text-text-primary mb-3">Time Range</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-xs font-medium text-text-secondary mb-1">Submission Date From</label>
+                                    <input type="date" class="w-full px-3 py-2 border border-border-medium rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary" value="2024-01-01" />
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-text-secondary mb-1">Submission Date To</label>
+                                    <input type="date" class="w-full px-3 py-2 border border-border-medium rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary" value="2025-09-01" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex space-x-2 pt-4">
+                            <button class="flex-1 px-4 py-2 bg-primary text-white rounded-md text-sm font-medium hover:bg-primary-600 transition-colors">
+                                Apply Search
+                            </button>
+                            <button class="px-4 py-2 border border-border-medium text-text-secondary rounded-md text-sm hover:bg-gray-50 transition-colors">
+                                Reset
+                            </button>
+                        </div>
+                        <button class="w-full px-4 py-2 border border-primary text-primary rounded-md text-sm font-medium hover:bg-primary-50 transition-colors">
+                            Save Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Panel - Results -->
+            <div class="flex-1 bg-background overflow-y-auto">
+                <div class="p-6">
+                    <!-- Results Header -->
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-lg font-inter font-semibold text-text-primary">Search Results</h3>
+                            <p class="text-sm text-text-secondary">Found 2,847 claims matching your criteria</p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <!-- View Mode Toggle -->
+                            <div class="flex items-center bg-surface rounded-lg border border-border-light p-1">
+                                <button id="tableView" class="px-3 py-1 rounded-md text-sm font-medium bg-primary text-white">
+                                    Table
+                                </button>
+                                <button id="mapView" class="px-3 py-1 rounded-md text-sm font-medium text-text-secondary hover:bg-gray-50">
+                                    Map
+                                </button>
+                                <button id="chartView" class="px-3 py-1 rounded-md text-sm font-medium text-text-secondary hover:bg-gray-50">
+                                    Charts
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table View -->
+                    <div id="tableViewContent" class="bg-surface rounded-lg border border-border-light">
+                        <!-- Table Controls -->
+                        <div class="flex items-center justify-between p-4 border-b border-border-light">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex items-center space-x-2">
+                                    <label class="text-sm font-medium text-text-secondary">Show:</label>
+                                    <select class="px-2 py-1 border border-border-medium rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                                        <option>25</option>
+                                        <option>50</option>
+                                        <option>100</option>
+                                    </select>
+                                    <span class="text-sm text-text-secondary">entries</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <label class="text-sm font-medium text-text-secondary">Sort by:</label>
+                                    <select class="px-2 py-1 border border-border-medium rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                                        <option>Submission Date</option>
+                                        <option>Claim ID</option>
+                                        <option>Status</option>
+                                        <option>District</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1 border border-border-medium text-text-secondary rounded text-sm hover:bg-gray-50 transition-colors">
+                                Customize Columns
+                            </button>
+                        </div>
+
+                        <!-- Data Table -->
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                                            <div class="flex items-center space-x-1">
+                                                <span>Claim ID</span>
+                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
+                                                </svg>
+                                            </div>
+                                        </th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Claimant</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Type</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Location</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Area (Ha)</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Status</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Submitted</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-primary">MP/2024/001247</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-primary">Ramesh Kumar</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">Individual</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">Bhopal, MP</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">2.5</td>
+                                        <td class="px-4 py-4 whitespace-nowrap">
+                                            <span class="status-warning">Pending</span>
+                                        </td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">15/03/2024</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm">
+                                            <button class="text-primary hover:text-primary-600">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-primary">OD/2024/002156</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-primary">Sunita Devi</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">Community</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">Mayurbhanj, OD</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">15.2</td>
+                                        <td class="px-4 py-4 whitespace-nowrap">
+                                            <span class="status-success">Approved</span>
+                                        </td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">22/01/2024</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm">
+                                            <button class="text-primary hover:text-primary-600">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-primary">TR/2024/000892</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-primary">Bijoy Tripura</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">Individual</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">West Tripura, TR</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">1.8</td>
+                                        <td class="px-4 py-4 whitespace-nowrap">
+                                            <span class="status-error">Rejected</span>
+                                        </td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">08/02/2024</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm">
+                                            <button class="text-primary hover:text-primary-600">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-primary">TG/2024/003421</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-primary">Lakshmi Reddy</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">Community</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">Adilabad, TG</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">8.7</td>
+                                        <td class="px-4 py-4 whitespace-nowrap">
+                                            <span class="status-warning">Under Review</span>
+                                        </td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">30/04/2024</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm">
+                                            <button class="text-primary hover:text-primary-600">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-primary">MP/2024/001892</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-primary">Arjun Singh</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">Individual</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">Jabalpur, MP</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">3.2</td>
+                                        <td class="px-4 py-4 whitespace-nowrap">
+                                            <span class="status-success">Approved</span>
+                                        </td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm text-text-secondary">12/05/2024</td>
+                                        <td class="px-4 py-4 whitespace-nowrap text-sm">
+                                            <button class="text-primary hover:text-primary-600">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="flex items-center justify-between px-4 py-3 border-t border-border-light">
+                            <div class="text-sm text-text-secondary">
+                                Showing 1 to 25 of 2,847 results
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button class="px-3 py-1 border border-border-medium text-text-secondary rounded text-sm hover:bg-gray-50 transition-colors">
+                                    Previous
+                                </button>
+                                <button class="px-3 py-1 bg-primary text-white rounded text-sm">1</button>
+                                <button class="px-3 py-1 border border-border-medium text-text-secondary rounded text-sm hover:bg-gray-50 transition-colors">2</button>
+                                <button class="px-3 py-1 border border-border-medium text-text-secondary rounded text-sm hover:bg-gray-50 transition-colors">3</button>
+                                <span class="px-2 text-text-secondary">...</span>
+                                <button class="px-3 py-1 border border-border-medium text-text-secondary rounded text-sm hover:bg-gray-50 transition-colors">114</button>
+                                <button class="px-3 py-1 border border-border-medium text-text-secondary rounded text-sm hover:bg-gray-50 transition-colors">
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart View (Hidden by default) -->
+                    <div id="chartViewContent" class="hidden space-y-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Status Distribution Chart -->
+                            <div class="bg-surface rounded-lg border border-border-light p-6">
+                                <h4 class="text-lg font-inter font-semibold text-text-primary mb-4">Claims by Status</h4>
+                                <div class="h-64">
+                                    <canvas id="statusChart"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- State-wise Distribution -->
+                            <div class="bg-surface rounded-lg border border-border-light p-6">
+                                <h4 class="text-lg font-inter font-semibold text-text-primary mb-4">State-wise Distribution</h4>
+                                <div class="h-64">
+                                    <canvas id="stateChart"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Trend Analysis -->
+                            <div class="bg-surface rounded-lg border border-border-light p-6 lg:col-span-2">
+                                <h4 class="text-lg font-inter font-semibold text-text-primary mb-4">Submission Trends (Last 12 Months)</h4>
+                                <div class="h-64">
+                                    <canvas id="trendChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Query Refinement & Export -->
+            <div class="w-64 bg-surface border-l border-border-light overflow-y-auto">
+                <div class="p-4">
+                    <!-- Real-time Statistics -->
+                    <div class="mb-6">
+                        <h4 class="text-sm font-medium text-text-primary mb-3">Current Results</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-text-secondary">Total Claims</span>
+                                <span class="text-sm font-medium text-text-primary">2,847</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-text-secondary">Pending</span>
+                                <span class="text-sm font-medium text-warning">1,234</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-text-secondary">Approved</span>
+                                <span class="text-sm font-medium text-success">1,456</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-text-secondary">Rejected</span>
+                                <span class="text-sm font-medium text-error">157</span>
+                            </div>
+                            <div class="pt-2 border-t border-border-light">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-text-secondary">Total Area</span>
+                                    <span class="text-sm font-medium text-text-primary">12,847 Ha</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Query Suggestions -->
+                    <div class="mb-6">
+                        <h4 class="text-sm font-medium text-text-primary mb-3">Refine Search</h4>
+                        <div class="space-y-2">
+                            <button class="w-full text-left px-3 py-2 text-xs bg-gray-50 hover:bg-gray-100 rounded-md transition-colors">
+                                + Add GPS coordinates filter
+                            </button>
+                            <button class="w-full text-left px-3 py-2 text-xs bg-gray-50 hover:bg-gray-100 rounded-md transition-colors">
+                                + Filter by claim size range
+                            </button>
+                            <button class="w-full text-left px-3 py-2 text-xs bg-gray-50 hover:bg-gray-100 rounded-md transition-colors">
+                                + Add verification status
+                            </button>
+                            <button class="w-full text-left px-3 py-2 text-xs bg-gray-50 hover:bg-gray-100 rounded-md transition-colors">
+                                + Include document status
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Export Options -->
+                    <div class="mb-6">
+                        <h4 class="text-sm font-medium text-text-primary mb-3">Export Results</h4>
+                        <div class="space-y-2">
+                            <button class="w-full flex items-center space-x-2 px-3 py-2 border border-border-medium rounded-md text-sm hover:bg-gray-50 transition-colors">
+                                <svg class="w-4 h-4 text-error" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                </svg>
+                                <span>Export as PDF</span>
+                            </button>
+                            <button class="w-full flex items-center space-x-2 px-3 py-2 border border-border-medium rounded-md text-sm hover:bg-gray-50 transition-colors">
+                                <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                </svg>
+                                <span>Export as Excel</span>
+                            </button>
+                            <button class="w-full flex items-center space-x-2 px-3 py-2 border border-border-medium rounded-md text-sm hover:bg-gray-50 transition-colors">
+                                <svg class="w-4 h-4 text-text-secondary" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                </svg>
+                                <span>Export as CSV</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Report Templates -->
+                    <div>
+                        <h4 class="text-sm font-medium text-text-primary mb-3">Report Templates</h4>
+                        <div class="space-y-2">
+                            <button class="w-full text-left px-3 py-2 text-xs bg-primary-50 text-primary-700 rounded-md hover:bg-primary-100 transition-colors">
+                                Monthly Summary Report
+                            </button>
+                            <button class="w-full text-left px-3 py-2 text-xs bg-gray-50 hover:bg-gray-100 rounded-md transition-colors">
+                                State Comparison Report
+                            </button>
+                            <button class="w-full text-left px-3 py-2 text-xs bg-gray-50 hover:bg-gray-100 rounded-md transition-colors">
+                                Tribal Area Analysis
+                            </button>
+                            <button class="w-full text-left px-3 py-2 text-xs bg-gray-50 hover:bg-gray-100 rounded-md transition-colors">
+                                Performance Metrics
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile FAB -->
+    <button id="mobileFab" class="fixed bottom-6 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-lg lg:hidden z-50 flex items-center justify-center">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+    </button>
+
+    <script>
+        // Sidebar toggle functionality
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileFab = document.getElementById('mobileFab');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('-translate-x-full');
+            if (window.innerWidth >= 1024) {
+                mainContent.classList.toggle('ml-80');
+                mainContent.classList.toggle('ml-0');
+            }
+        }
+
+        sidebarToggle.addEventListener('click', toggleSidebar);
+        menuToggle.addEventListener('click', toggleSidebar);
+        mobileFab.addEventListener('click', toggleSidebar);
+
+        // View mode toggle
+        const tableView = document.getElementById('tableView');
+        const mapView = document.getElementById('mapView');
+        const chartView = document.getElementById('chartView');
+        const tableViewContent = document.getElementById('tableViewContent');
+        const chartViewContent = document.getElementById('chartViewContent');
+
+        function switchView(activeButton, activeContent) {
+            // Reset all buttons
+            [tableView, mapView, chartView].forEach(btn => {
+                btn.classList.remove('bg-primary', 'text-white');
+                btn.classList.add('text-text-secondary');
+            });
+            
+            // Activate selected button
+            activeButton.classList.add('bg-primary', 'text-white');
+            activeButton.classList.remove('text-text-secondary');
+            
+            // Hide all content
+            tableViewContent.classList.add('hidden');
+            chartViewContent.classList.add('hidden');
+            
+            // Show selected content
+            if (activeContent) {
+                activeContent.classList.remove('hidden');
+            }
+        }
+
+        tableView.addEventListener('click', () => switchView(tableView, tableViewContent));
+        mapView.addEventListener('click', () => switchView(mapView, null));
+        chartView.addEventListener('click', () => {
+            switchView(chartView, chartViewContent);
+            initializeCharts();
+        });
+
+        // Initialize charts
+        function initializeCharts() {
+            // Status Distribution Chart
+            const statusCtx = document.getElementById('statusChart');
+            if (statusCtx) {
+                new Chart(statusCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Pending', 'Approved', 'Rejected', 'Under Review'],
+                        datasets: [{
+                            data: [1234, 1456, 157, 89],
+                            backgroundColor: ['#DAA520', '#228B22', '#DC143C', '#FF8C00']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+
+            // State Distribution Chart
+            const stateCtx = document.getElementById('stateChart');
+            if (stateCtx) {
+                new Chart(stateCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Madhya Pradesh', 'Odisha', 'Telangana', 'Tripura'],
+                        datasets: [{
+                            label: 'Claims',
+                            data: [1247, 892, 456, 252],
+                            backgroundColor: '#2D5A27'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Trend Chart
+            const trendCtx = document.getElementById('trendChart');
+            if (trendCtx) {
+                new Chart(trendCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Oct 2024', 'Nov 2024', 'Dec 2024', 'Jan 2025', 'Feb 2025', 'Mar 2025', 'Apr 2025', 'May 2025', 'Jun 2025', 'Jul 2025', 'Aug 2025', 'Sep 2025'],
+                        datasets: [{
+                            label: 'Submissions',
+                            data: [234, 267, 189, 298, 345, 278, 312, 289, 356, 298, 267, 234],
+                            borderColor: '#2D5A27',
+                            backgroundColor: 'rgba(45, 90, 39, 0.1)',
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Responsive behavior
+        function handleResize() {
+            if (window.innerWidth < 1024) {
+                sidebar.classList.add('-translate-x-full');
+                mainContent.classList.remove('ml-80');
+                mainContent.classList.add('ml-0');
+            } else {
+                sidebar.classList.remove('-translate-x-full');
+                mainContent.classList.add('ml-80');
+                mainContent.classList.remove('ml-0');
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Initial call
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
