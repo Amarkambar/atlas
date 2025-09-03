@@ -1,0 +1,9 @@
+@@ .. @@
+   "scripts": {
+-    "test": "echo \"Error: no test specified\" && exit 1"
++    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
++    "dev:backend": "nodemon server/index.js",
++    "dev:frontend": "cd fra_atlas_dss && npm run watch:css",
++    "start": "node server/index.js",
++    "build": "cd fra_atlas_dss && npm run build:css"
+   },

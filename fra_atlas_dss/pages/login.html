@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - FRA Atlas DSS</title>
+    <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body class="bg-gradient-to-r from-primary-50 to-blue-50 min-h-screen flex items-center justify-center">
+    <div class="max-w-md w-full mx-4">
+        <!-- Login Card -->
+        <div class="bg-surface rounded-xl shadow-lg p-8">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-inter font-bold text-text-primary">Welcome Back</h1>
+                <p class="text-text-secondary mt-2">Sign in to access FRA Atlas DSS</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="space-y-6">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-text-primary mb-2">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email"
+                        required
+                        class="w-full px-4 py-3 border border-border-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                        placeholder="Enter your email"
+                    />
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-text-primary mb-2">Password</label>
+                    <div class="relative">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password"
+                            required
+                            class="w-full px-4 py-3 border border-border-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors pr-12"
+                            placeholder="Enter your password"
+                        />
+                        <button 
+                            type="button" 
+                            id="togglePassword"
+                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-text-secondary hover:text-text-primary transition-colors"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary" />
+                        <span class="ml-2 text-sm text-text-secondary">Remember me</span>
+                    </label>
+                    <a href="#" class="text-sm text-primary hover:text-primary-600 transition-colors">Forgot password?</a>
+                </div>
+
+                <button 
+                    type="submit" 
+                    id="loginBtn"
+                    class="w-full px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors disabled:opacity-50"
+                >
+                    Sign In
+                </button>
+            </form>
+
+            <!-- Demo Credentials -->
+            <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                <h3 class="text-sm font-medium text-text-primary mb-2">Demo Credentials</h3>
+                <div class="text-xs text-text-secondary space-y-1">
+                    <p><strong>Citizen:</strong> ramesh.kumar@email.com / demo123</p>
+                    <p><strong>Officer:</strong> suresh.patel@gov.in / demo123</p>
+                </div>
+            </div>
+
+            <!-- Register Link -->
+            <div class="mt-6 text-center">
+                <p class="text-sm text-text-secondary">
+                    Don't have an account? 
+                    <a href="register.html" class="text-primary hover:text-primary-600 font-medium transition-colors">Register here</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="hidden mt-4 p-4 bg-error-50 border border-error-200 text-error rounded-lg text-sm"></div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const loginBtn = document.getElementById('loginBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+
+            // Toggle password visibility
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                // Update icon
+                const icon = type === 'password' ? 
+                    'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z' :
+                    'M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21';
+                
+                togglePassword.innerHTML = `
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${icon}"/>
+                    </svg>
+                `;
+            });
+
+            // Handle form submission
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                // Show loading state
+                loginBtn.disabled = true;
+                loginBtn.textContent = 'Signing in...';
+                errorMessage.classList.add('hidden');
+
+                try {
+                    const response = await window.api.login(email, password);
+                    
+                    // Redirect based on user role
+                    if (response.user.role === 'officer' || response.user.role === 'admin') {
+                        window.location.href = '/pages/claims_management_dashboard.html';
+                    } else {
+                        window.location.href = '/pages/community_input_portal.html';
+                    }
+                } catch (error) {
+                    errorMessage.textContent = error.message || 'Login failed. Please try again.';
+                    errorMessage.classList.remove('hidden');
+                } finally {
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'Sign In';
+                }
+            });
+
+            // Auto-fill demo credentials
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.key === 'd') {
+                    e.preventDefault();
+                    document.getElementById('email').value = 'ramesh.kumar@email.com';
+                    document.getElementById('password').value = 'demo123';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
